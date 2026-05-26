@@ -1,0 +1,30 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+driver = webdriver.Edge()
+driver.get("https://www.amazon.in")
+driver.maximize_window()
+time.sleep(5)
+# Search iPhones
+driver.find_element(
+    By.XPATH,
+    "//input[@id='twotabsearchtextbox']"
+).send_keys("iphones")
+# Click search button
+driver.find_element(
+    By.XPATH,
+    "//input[@id='nav-search-submit-button']"
+).click()
+time.sleep(5)
+# Get only product titles
+products = driver.find_elements(
+    By.XPATH,
+    "//h2//span"
+)
+print(str(len(products)) + " products found")
+
+for i in products:
+    print(i.text)
+
+driver.quit()
+
